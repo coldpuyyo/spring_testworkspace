@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta charset="UTF-8">
+
+<title th:text="${title}"></title>
+</head>
+<body>
+   <div th:replace="include/common_module::header"></div>
+   
+   <div class="mainFrame" th:replace="include/index_main::main"></div>
+<!--    <div class="mainFrame" th:insert="include/index_main::main"></div> -->
+   
+   <div th:replace="include/common_module::footer"></div>
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta charset="UTF-8">
+<title th:text="${title}"></title>
+
+<link rel="stylesheet"
+   th:href="${isList} ? @{/css/list.css} : @{/css/detail.css}" />
+
+<script type="text/javascript">
+   //       function search(){
+   //          const optionField = document.querySelector('.optionField') 
+   //             searchInput = document.querySelector('.searchInput');
+
+   //          if(searchInput.value){
+   //             location.href = '?pageNum=1&' + 'searchField=' + optionField.value + '&searchWord=' + searchInput.value; 
+   //          } else {
+   //             location.href = location.pathname;
+   //          }
+   //       }
+
+   //       function changePageScope(page) {
+   //          const optionField = document.querySelector('.optionField') 
+   //          searchInput = document.querySelector('.searchInput');
+
+   //           location.href = "?pageNum=" + page + '&searchField=' + optionField.value + '&searchWord=' + searchInput.value;
+   //       }
+</script>
+</head>
+
+<body>
+   <div th:replace="include/common_module::header"></div>
+
+   <div th:if="${isList}">
+      <div th:replace="${fragment}::list_main"></div>
+   </div>
+   <div th:unless="${isList}">
+      <div th:replace="${fragment}::detail_main"></div>
+   </div>
+   
+   <div th:replace="include/common_module::footer"></div>
+</body>
+
+</html>

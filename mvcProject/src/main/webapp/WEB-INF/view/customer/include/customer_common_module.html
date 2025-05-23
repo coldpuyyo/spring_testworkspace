@@ -1,0 +1,164 @@
+<div xmlns:th="http://www.thymeleaf.org" th:fragment="list_main">
+	<main class="main">
+		<h2>공지사항</h2>
+
+		<div>
+			<div class="hidden">공지사항 검색 필드</div>
+			<label>검색분류 <select class="optionField">
+					<!--                   <option value="title" ${searchField == 'writer_Id' ? '' : 'selected' }>제목</option> -->
+					<!--                   <option value="writer_Id" ${searchField == 'writer_Id' ? 'selected' : '' }>작성자</option> -->
+			</select>
+			</label> <label>검색어 <!--          <input type="text" class="searchInput" value="${searchWord}" /> -->
+			</label>
+			<button type="button" onclick="search()">검색</button>
+		</div>
+		<hr>
+
+		<div>
+			<h3 class="hidden">공지사항 목록</h3>
+			<div class="table">
+				<div class="thead">번호</div>
+				<div class="thead">제목</div>
+				<div class="thead">작성자</div>
+				<div class="thead">작성일</div>
+				<div class="thead">조회수</div>
+
+				<!--                <c:forEach var="noticeView" items="${noticeViews}"> -->
+				<!--                   <div>${noticeView.id}</div> -->
+				<!--                   <div> -->
+				<!--                      <a href="detail/page?id=${noticeView.id}&pageNum=${pageNum}&searchField=${searchField}&searchWord=${searchWord}"> -->
+				<!--                      ${noticeView.title} -->
+				<!--                      <span class="colorRed">( ${noticeView.cmt_cnt} )</span> -->
+				<!--                      </a> -->
+				<!--                   </div> -->
+				<!--                   <div>${noticeView.writer_id}</div> -->
+				<!--                   <div>${noticeView.regDate}</div> -->
+				<!--                   <div class="colorRed">${noticeView.hit}</div> -->
+				<!--                </c:forEach> -->
+
+				<div>1</div>
+				<div>
+					<!--             <a -->
+					<!--                href="detail?id=${noticeView.id}&pageNum=${pageNum}&searchField=${searchField}&searchWord=${searchWord}"> -->
+					<!--                타이틀 <span class="colorRed">( 5 )</span> -->
+					<!--             </a> -->
+					<a href="detail"> 타이틀 <span class="colorRed">( 5 )</span>
+					</a>
+				</div>
+				<div>psy</div>
+				<div>2000.1.15</div>
+				<div class="colorRed">10</div>
+
+			</div>
+		</div>
+		<hr>
+
+		<!--          <c:set var="wholePage" value="${ Math.ceil( noticeCnt / ( pagingSizeValue * pagenationSet ) ) }"/> -->
+		<!--          <c:set var="pageNationStartNum" value="${ pageNum - ( pageNum - 1 ) % pagenationSet }"/> -->
+		<!--          <c:set var="pageNationLastNum" value="${ Math.ceil( noticeCnt / pagingSizeValue ) }"/>  -->
+		<!--          <c:set var="currentPage" value="${ fn:substringBefore( Math.ceil( pageNationStartNum / pagenationSet ), '.' ) }"/> -->
+
+		<div class="pageNationPart">
+			<div>
+				<h3 class="hidden">현재 페이지</h3>
+				<div>
+					<!--             <span>${ currentPage }</span> / <span class="colorRed">${fn:substringBefore(wholePage, -->
+					<!--                '.')}</span> pages -->
+				</div>
+			</div>
+
+			<div>
+				<ul>
+					<!--                   <c:forEach var="i" begin="0" end="${pagenationSet - 1 }" > -->
+					<!--                      <c:set var="printPageNum" value="${ pageNationStartNum + i }"/> -->
+					<!--                      <c:if test="${printPageNum <= pageNationLastNum}"> -->
+					<!--                         <li ${ pageNum == printPageNum ? 'class = sellected' : '' }><a href="?pageNum=${printPageNum}&searchField=${searchField}&searchWord=${searchWord}">${printPageNum}</a></li> -->
+					<!--                      </c:if> -->
+					<!--                   </c:forEach> -->
+				</ul>
+
+				<div class="btn">
+					<!--                   <c:choose> -->
+					<!--                      <c:when test="${currentPage > 1}"> -->
+					<!--                         <button class="btn-prev" onclick = "changePageScope( ${pageNationStartNum - 1} )">이전</button> -->
+					<!--                      </c:when> -->
+					<!--                      <c:otherwise> -->
+					<!--                         <button class="btn-prev" onclick="alert('이전 페이지가 없습니다.');">이전</button> -->
+					<!--                      </c:otherwise> -->
+					<!--                   </c:choose> -->
+
+					<!--                   <c:choose> -->
+					<!--                      <c:when test="${ currentPage < wholePage }"> -->
+					<!--                         <button class="btn-next" onclick="changePageScope( ${pageNationStartNum + 5 } )">다음</button> -->
+					<!--                      </c:when> -->
+					<!--                      <c:otherwise> -->
+					<!--                         <button class="btn-next" onclick="alert('다음 페이지가 없습니다.');">다음</button> -->
+					<!--                      </c:otherwise> -->
+					<!--                   </c:choose> -->
+				</div>
+			</div>
+		</div>
+	</main>
+	<hr />
+</div>
+
+<div xmlns:th="http://www.thymeleaf.org" th:fragment="detail_main">
+	<main>
+		<div>
+			<h3 class="hidden">공지사항 내용</h3>
+
+			<div class="table">
+				<div>제목</div>
+				<div>${noticeModel.title}</div>
+				<div>작성일</div>
+				<div>${noticeModel.regDate}</div>
+				<div>작성자</div>
+				<div>${noticeModel.writer_id}</div>
+				<div>조회수</div>
+				<div>${noticeModel.hit}</div>
+				<div>첨부파일</div>
+				<div class="attachedfilesList">
+					<!--                   <c:forTokens var="file" items="${noticeModel.files}" delims="," varStatus="status"> -->
+					<!--                      <a href="/upload/${file}"> -->
+					<!--                         ${fn:endsWith(file, 'gif') ? fn:toUpperCase(file) : file} -->
+					<!--                      </a> -->
+					<!--                           ${status.last ? '' : '/ '} -->
+					<!--                        </c:forTokens> -->
+				</div>
+				<div>${ fn:escapeXml(noticeModel.content) }</div>
+			</div>
+		</div>
+
+		<div class="pageNavigation">
+			<div>
+				<!--                         <a href="list?pageNum=${pageNum}&searchField=${searchField}&searchWord=${searchWord}">목록</a> -->
+				<a href="list">목록</a>
+			</div>
+
+			<div>이전글</div>
+			<div>
+				<!--                <c:choose> -->
+				<!--                   <c:when test="${empty prevNotice}">이전글이 없습니다.</c:when> -->
+				<!--                   <c:otherwise> -->
+				<!--                      <a href="?id=${prevNotice.id}&pageNum=${pageNum}&searchField=${searchField}&searchWord=${searchWord}"> -->
+				<!--                         ${prevNotice.title} -->
+				<!--                      </a> -->
+				<!--                   </c:otherwise> -->
+				<!--                </c:choose> -->
+			</div>
+
+			<div>다음글</div>
+			<div>
+				<!--                <c:choose> -->
+				<!--                   <c:when test="${empty nextNotice}">다음글이 없습니다.</c:when> -->
+				<!--                   <c:otherwise> -->
+				<!--                      <a href="?id=${nextNotice.id}&pageNum=${pageNum}&searchField=${searchField}&searchWord=${searchWord}"> -->
+				<!--                         ${nextNotice.title} -->
+				<!--                      </a> -->
+				<!--                   </c:otherwise> -->
+				<!--                </c:choose> -->
+			</div>
+		</div>
+	</main>
+	<hr />
+</div>

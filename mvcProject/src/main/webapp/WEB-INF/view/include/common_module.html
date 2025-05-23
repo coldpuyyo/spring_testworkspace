@@ -1,0 +1,24 @@
+<!--
+   Thymeleaf 전용 속성(fragment)을 사용하기 위한 XML 네임스페이스 선언.
+   기존 header.html 은 전체 코드를 그룹화 시킬 태그가 존재하지 않아, 아래와같이
+   더미 태그(div)를 만들어 전체  태그를 그룹화시키고 이를 fragment 로 지정. 
+-->
+<div xmlns:th="http://www.thymeleaf.org" th:fragment="header">
+   <header id="header">
+      <h1 id="logo">
+         <a href="/">PSYLAB</a>
+      </h1>
+   
+      <nav id="main-menu">
+         <h1>메인메뉴</h1>
+         <ul>
+            <li><a href="/view/admin/notice/list">공지사항</a></li>
+            <li><a href="/user/login">로그인</a></li>
+            <li><a href="/user/createAccount">회원가입</a></li>
+         </ul>
+      </nav>
+   </header>
+   <hr>
+</div>
+
+<footer id="footer" xmlns:th="http://www.thymeleaf.org" th:fragment="footer">푸터다</footer>

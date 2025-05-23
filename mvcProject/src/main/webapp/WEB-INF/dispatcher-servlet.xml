@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd
+      http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+">
+
+	<bean id="mariaDao" class="com.psy.web.dao.imp.MariaDao">
+		<constructor-arg value="org.mariadb.jdbc.Driver" />
+		<constructor-arg value="jdbc:mariadb://localhost:3307/maria_db" />
+		<constructor-arg value="kkm" />
+		<constructor-arg value="qntleh378@" />
+	</bean>
+
+	<bean id="mysqlDao" class="com.psy.web.dao.imp.MysqlDao">
+		<constructor-arg value="com.mysql.cj.jdbc.Driver" />
+		<constructor-arg value="jdbc:mysql://localhost:3306/test_db" />
+		<constructor-arg value="kkm" />
+		<constructor-arg value="qntleh378@" />
+	</bean>
+
+	<bean id="adminService"
+		class="com.psy.web.service.imp.AdminService">
+		<property name="dao" ref="mariaDao" />
+	</bean>
+
+	<bean id="userService" class="com.psy.web.service.imp.UserService">
+		<property name="dao" ref="mysqlDao" />
+	</bean>
+
+	<bean id="/" class="com.psy.web.controller.IndexController" />
+	<bean id="/view/index" class="com.psy.web.controller.IndexController" />
+	<bean id="/view/admin/notice/list" class="com.psy.web.controller.admin.notice.NoticeListController" />
+	<!-- <bean id="/view/customer/notice/detail" class="com.psy.web.controller.notice.DetailController" /> -->
+
+	<bean id="templateResolver"
+		class="org.thymeleaf.spring6.templateresolver.SpringResourceTemplateResolver"
+		p:prefix="/WEB-INF/view/" p:suffix=".html" p:templateMode="HTML"
+		p:characterEncoding="UTF-8" />
+
+	<bean id="templateEngine"
+		class="org.thymeleaf.spring6.SpringTemplateEngine"
+		p:templateResolver-ref="templateResolver" />
+
+	<bean class="org.thymeleaf.spring6.view.ThymeleafViewResolver"
+		p:templateEngine-ref="templateEngine" p:characterEncoding="UTF-8" />
+
+	<mvc:resources location="classpath:/static" mapping="/**" />
+</beans>
